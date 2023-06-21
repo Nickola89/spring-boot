@@ -18,8 +18,13 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
+    public List<User> findEmail(String email) {
+        return entityManager.createQuery("from User where email = : email").setParameter("email", email).getResultList();
+    }
+
+    @Override
     public void createUser(User user) {
-        entityManager.merge(user);
+        entityManager.persist(user);
     }
 
     @Override
@@ -33,6 +38,7 @@ public class UserDaoImp implements UserDao {
         userNew.setName(userOld.getName());
         userNew.setLastName(userOld.getLastName());
         userNew.setAge(userOld.getAge());
+        userNew.setEmail(userOld.getEmail());
 
     }
 

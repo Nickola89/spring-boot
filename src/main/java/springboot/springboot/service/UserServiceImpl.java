@@ -3,6 +3,7 @@ package springboot.springboot.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springboot.springboot.dao.UserDao;
+import springboot.springboot.exception.UserAlreadyException;
 import springboot.springboot.model.User;
 
 import java.util.List;
@@ -25,7 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createUser(User user) {
-        userDao.createUser(user);
+        if (!userDao.findEmail(user.getEmail()).isEmpty())
+            throw new UserAlreadyException("User already exist");
+        else {
+            userDao.createUser(user);
+        }
     }
 
     @Override

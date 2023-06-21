@@ -2,10 +2,12 @@ package springboot.springboot.service;
 
 import springboot.springboot.model.User;
 
-public interface UserService {
-    Object getAllUsers();
+import java.util.List;
 
-    void createUser(User user);
+public interface UserService {
+    List<User> getAllUsers();
+
+    void createUser(User user) throws Exception;
 
     void updateUser(User user, int id);
 
